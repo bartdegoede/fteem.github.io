@@ -7,9 +7,19 @@ highlighter: pygments
 logo: false
 paginate: 15
 baseurl: /
-domain_name: 'http://yourblog-domain.com'
+domain_name: 'http://eftimov.net'
 google_analytics: 'UA-XXXXXXXX-X'
+cover: 'assets/images/cover.jpeg'
+profile_image: 'assets/images/profile.jpg'
+permalink: :title
+
+
+github: "fteem"
+linkedin: ""
+twitter: "fteem"
+email: "ileeftimov+blog@gmail.com"
+
 
 # Details for the RSS feed generator
 url:            'eftimov.net'
-author:         'Ilija EFtimov'
+author:         'Ilija Eftimov'
