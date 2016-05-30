@@ -1,7 +1,7 @@
 # Site settings
 title: A human, interested in programming
 header-img: img/home-cover.jpg
-description: "A human, interested in programming"
+description: "Ramblings about Ruby, Rails, OOP and programming by Ilija Eftimov"
 baseurl: ""
 url: "http://eftimov.net"
 
