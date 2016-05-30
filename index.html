@@ -1,0 +1,26 @@
+---
+layout: page
+description: "A Clean Blog Theme by Start Bootstrap"
+---
+
+{% for post in site.posts %}
+
+{% assign currentdate = post.date | date: "%Y" %}
+{% if currentdate != date %}
+<h2 class='tie-breaker'>
+  {{ currentdate }}
+</h2>
+{% assign date = currentdate %}
+{% endif %}
+
+<div class="post-preview">
+  <a href="{{ post.url | prepend: site.baseurl }}">
+    <span class="post-title">
+      {{ post.title }}
+    </span>
+    <span class="post-meta">
+    {{ post.date | date: "%b %-d, %Y" }}
+    </span>
+  </a>
+</div>
+{% endfor %}

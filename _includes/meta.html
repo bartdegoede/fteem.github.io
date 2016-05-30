@@ -1,0 +1,37 @@
+<!--FB Meta-->
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="via http://eftimov.net" />
+
+{% if layout.post == true %}
+  <meta property="og:image" content="{{ page.card-img }}" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="{{ page.date }}" />
+  <meta property="og:title" content="{{page.title}} &middot; {{ site.title }}" />
+  <meta property="og:description" content="{{page.excerpt | strip_html}}" />
+  <meta property="og:url" content="{{site.url}}{{page.url}}/" />
+{% else %}
+  <meta property="og:url" content="{{site.url}}" />
+  <meta property="og:title" content="{{site.author.name}}" />
+  <meta property="og:description" content="{{site.tagline}}" />
+{% endif %}
+
+
+<!--Twitter Meta-->
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="{{site.url}}"/>
+<meta name="twitter:domain" content="via @fteem"/>
+<meta name="twitter:creator" content="@fteem"/>
+
+{% if layout.post == true %}
+  <meta name="twitter:title" content="{{page.title}}"/>
+  <meta name="twitter:description" content="{{page.excerpt | strip_html}}"/>
+  <meta name="twitter:image" content="{{ page.card-img }}"/>
+{% else %}
+  <meta name="twitter:title" content="{{site.author.name}}"/>
+  <meta name="twitter:description" content="{{site.tagline}}"/>
+{% endif %}
+

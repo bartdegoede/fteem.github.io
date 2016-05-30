@@ -1,0 +1,25 @@
+# Site settings
+title: A human, interested in programming
+header-img: img/home-cover.jpg
+description: "A human, interested in programming"
+baseurl: ""
+url: "http://eftimov.net"
+
+# Author info
+author:
+  name: "Ilija Eftimov"
+  github: "fteem"
+  twitter: "fteem"
+  email: "ileeftimov+blog@gmail.com"
+  disqus: "eftimoff"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: :title
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+gems: [jekyll-paginate, jekyll-feed]
+
+google_analytics: 'UA-11264459-2'
+
