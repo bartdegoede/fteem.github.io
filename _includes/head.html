@@ -10,7 +10,11 @@
 
     {% include meta.html %}
 
-    <title>{{ site.title }} - {{ site.author.name }}</title>
+    {% if page.title %}
+      <title>{{ page.title }} - {{ site.author.name }}</title>
+    {% else %}
+      <title>{{ site.title }} - {{ site.author.name }}</title>
+    {% endif %}
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
