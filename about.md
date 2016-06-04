@@ -3,7 +3,6 @@ layout: page
 title: Who am I?
 header-img: img/me-01.jpg
 ---
-
 My name is Ilija Eftimov and I am a software engineer. I recently moved to live
 and work in Amsterdam, The Netherlands. 
 
@@ -13,7 +12,7 @@ You can find me on [Twitter](https://twitter.com/fteem),
 networks, but I don't think that you will find anything interesting there. So,
 yeah, forget I said anything.
 
-I work for [Catawiki]('http://catawiki.com) is as a backend developer, building
+I work for [Catawiki]('http://catawiki.com) as a backend developer, building
 APIs, reviewing code, hunting bugs and slaying dragons.
 
 Before that, I spent three years as a full-stack Ruby on Rails developer, working
