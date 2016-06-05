@@ -9,13 +9,13 @@ card-img: img/cards/how-rails-handles-status-codes.png
 Recently, I have been building an API as part of my day job. Rails is a great
 framework to build APIs in, and it has been a joy so far. When building the
 responses of the API, it's paramount to understand what HTTP statuses you should
-utilise, which will in return help the consumers by providing more meaningful 
-responses. 
+utilize, which will in return help the consumers by providing more meaningful
+responses.
 
-Sure, you could always have a `status` property in the response JSON, which will 
-be a human-readable status code. But, I would like you to think about HTTP status 
-codes as a nice card on a present, with your beautiful handwriting and best 
-wishes to whom the gift goes to. HTTP status code don't just add more semantical 
+Sure, you could always have a `status` property in the response JSON, which will
+be a human-readable status code. But, I would like you to think about HTTP status
+codes as a nice card on a present, with your beautiful handwriting and best
+wishes to whom the gift goes to. HTTP status code don't just add more semantical
 correctness, but they also speak about the nature of the response.
 
 ## Rails and statuses
@@ -44,9 +44,9 @@ can use? And how does Rails actually do this?
 
 The HTTP status codes list is a quite stable and static list. Although sometimes
 status codes are added to the list, once you learn it, keeping up to date is
-rather easy. The latest addition to this list is HTTP 451 - Unavailable For 
-Legal Reasons. You can see the RFC where it was proposed 
-[here](http://tools.ietf.org/html/rfc7725). 
+rather easy. The latest addition to this list is HTTP 451 - Unavailable For
+Legal Reasons. You can see the RFC where it was proposed
+[here](http://tools.ietf.org/html/rfc7725).
 
 So, how does Rails knows how to create all of these symbols, so we can use them
 in our `render` methods? Well, what's very interesting is that Rails actually
@@ -116,11 +116,11 @@ an `irb` session, type:
 {% endhighlight %}
 
 As you can see, the `Rack::Utils::HTTP_STATUS_CODES` is a Hash that has all of
-the HTTP status codes, with the corresponding messages. If you open the 
-`Rack::Utils` 
+the HTTP status codes, with the corresponding messages. If you open the
+`Rack::Utils`
 [documentation](http://www.rubydoc.info/github/rack/rack/master/Rack/Utils#HTTP_STATUS_CODES-constant)
 you can see how these are programmatically created, including the code that
-does the conversion. The status codes are pulled from 
+does the conversion. The status codes are pulled from
 [this CSV file](www.iana.org/assignments/http-status-codes/http-status-codes-1.csv)
 and are parsed using this piece of code:
 
@@ -128,7 +128,7 @@ and are parsed using this piece of code:
 ruby -ne 'm = /^(\d{3}),(?!Unassigned|\(Unused\))([^,]+)/.match($_) and puts "#{m[1]} => \x27#{m[2].strip}\x27,"'
 {% endhighlight %}
 
-Great. But, how do we get the symboled versions of the status messages? Well,
+Great. But, how do we get the symbolized versions of the status messages? Well,
 Rack does that for us as well. In an `irb` session, try this:
 
 {% highlight ruby %}
@@ -193,34 +193,34 @@ Rack does that for us as well. In an `irb` session, try this:
 {% endhighlight %}
 
 As you can see, the `Rack::Utils::SYMBOL_TO_STATUS_CODE` constant contains all
-of the status codes as symbols. The 
+of the status codes as symbols. The
 [documentation](http://www.rubydoc.info/github/rack/rack/master/Rack/Utils#SYMBOL_TO_STATUS_CODE-constant)
-also shows the actual conversion, from `HTTP_STATUS_CODES` to 
+also shows the actual conversion, from `HTTP_STATUS_CODES` to
 `SYMBOL_TO_STATUS_CODE`:
 
 {% highlight ruby %}
 Hash[*HTTP_STATUS_CODES.map { |code, message|
   [message.downcase.gsub(/\s|-|'/, '_').to_sym, code]
-  }.flatten]
+}.flatten]
 {% endhighlight %}
 
 Having all of this documentation in place, is rather easy to see how everything
-falls into place. Rails being a Rack app, can utilise everything that Rack 
-provides, an this is just an example. But, how does actually Rails plugs this
-into it's runtime and has the ability to understand what is the status code?
+falls into place. Rails being a Rack app, can utilize everything that Rack
+provides, and this is just an example. But, how does Rails actually plugs this
+into its runtime and has the ability to understand what is the status code?
 
 ## A bit deeper
 
-Rails' source code, although very documented and well structured, can still be
+Rails' source code, although very well documented and well structured, can still be
 overwhelming to someone that hasn't spent enough time digging through. If you are
 a Ruby developer, I encourage you to spend some time around Rails' code - you
 will learn a lot, I promise you!
 
 So, how does Rails know what status code to apply to the response, if you provide
 just the symbolized version on the status? Well, let's start with Rails' class
-hirearchy, which is quite nice. 
+hierarchy, which is quite nice.
 
-On the surface, or what we usually see as developers, the rendering is done in 
+On the surface, or what we usually see as developers, the rendering is done in
 the controllers. If you open any of your applications' `ApplicationController`,
 you will see something like:
 
@@ -230,11 +230,11 @@ class ApplicationController < ActionController::Base
 end
 {% endhighlight %}
 
-This means that all of our controllers are subclasses of the 
-`ActionController::Base` class. If you open the 
-[source code](https://github.com/rails/rails/blob/52ce6ece8c8f74064bb64e0a0b1ddd83092718e1/actionpack/lib/action_controller/base.rb) 
-of the `ActionController::Base` class, you will see some very interesting things, 
-that can be quite informative. But for our use case, we are interested in the 
+This means that all of our controllers are subclasses of the
+`ActionController::Base` class. If you open the
+[source code](https://github.com/rails/rails/blob/52ce6ece8c8f74064bb64e0a0b1ddd83092718e1/actionpack/lib/action_controller/base.rb)
+of the `ActionController::Base` class, you will see some very interesting things,
+that can be quite informative. But for our use case, we are interested in the
 following:
 
 {% highlight ruby %}
@@ -289,7 +289,7 @@ end
 {% endhighlight %}
 
 This piece of code, actually includes all of these modules in the
-`ActionController::Base` class, which in return gives us all of the 
+`ActionController::Base` class, which in return gives us all of the
 functionlities that our controllers have. Just look at the module names, like
 `Redirecting`, `ActionView::Layouts`, `Rendering`, `Cookies`, `Flash` and so on.
 Very self-explanatory, right?
@@ -297,11 +297,11 @@ Very self-explanatory, right?
 Well, the classes that we are interested in are `AbstractController::Rendering`
 and `ActionController::Rendering`. The first one is an abstract class, kind of
 like an interface, and the second one is the default implementation class, which
-contains all of the rendering mechanisms that Rails uses to render your response. 
-When we call `render` in our controllers, we are executing the 
-`ActionController::Rendering#render` method, which does couple of things for us: 
-it normalizes the arguments, the options and then builds the body of the response. 
-When it normalizes the arguments, deep inside the `_normalize_render` method, it 
+contains all of the rendering mechanisms that Rails uses to render your response.
+When we call `render` in our controllers, we are executing the
+`ActionController::Rendering#render` method, which does couple of things for us:
+it normalizes the arguments, the options and then builds the body of the response.
+When it normalizes the arguments, deep inside the `_normalize_render` method, it
 contains these lines of code:
 
 {% highlight ruby %}
@@ -328,7 +328,7 @@ end
 
 Here's how your `status: :created` gets translated to a `status: 201`. As you
 can see, although Rails' source is sometimes hard to digest, it's very well
-done and navigating through it is not that hard. 
+done and navigating through it is not that hard.
 
 ## What about exceptions?
 
@@ -336,7 +336,7 @@ So now we know how Rails does the expected rendering, which was created by us,
 developers. But, what happens when Rails hits an exception of some sort, but it
 still has to recover from it and return a proper HTTP status code to the client?
 
-Although at first you might expect some sort of a `rescue` block in 
+Although at first you might expect some sort of a `rescue` block in
 `ActionController::Metal` class, this is not the case. Open any Rails app you
 have on your computer, and run in it's root directory:
 
@@ -365,9 +365,9 @@ use ActionView::Digestor::PerRequestDigestCacheExpiry
 run YourApp::Application.routes
 {% endhighlight %}
 
-Actually, the exceptions are handled in Rails' middleware, more specifically in 
-the `ActionDispatch::ShowExceptions` middleware class. It wraps a group of 
-exceptions and maps them to a specific status code. This is the code that does 
+Actually, the exceptions are handled in Rails' middleware, more specifically in
+the `ActionDispatch::ShowExceptions` middleware class. It wraps a group of
+exceptions and maps them to a specific status code. This is the code that does
 the mapping:
 
 {% highlight ruby %}
@@ -395,10 +395,10 @@ module ActionDispatch
 end
 {% endhighlight %}
 
-All of the exceptions that can occur in the request/response lifecycle are mapped 
+All of the exceptions that can occur in the request/response lifecycle are mapped
 to a specific status code, which will be returned by the middleware if an
-exception is rescued. You can see this functionality in 
-`ActionDispatch::ShowExceptions#call` method, which invokes the 
+exception is rescued. You can see this functionality in
+`ActionDispatch::ShowExceptions#call` method, which invokes the
 `render_exception` method if an `Exception` is rescued:
 
 {% highlight ruby %}
@@ -431,7 +431,7 @@ end
 {% endhighlight %}
 
 Now, when the exception is being rendered, the `ExceptionWrapper` comes into the
-picutre. It will wrap the exception, and return an approprite status code, which
+picture. It will wrap the exception, and return an appropriate status code, which
 is translated from the symbolized variant, to the number version, using:
 
 {% highlight ruby %}
@@ -450,20 +450,18 @@ end
 {% endhighlight %}
 
 And that's about it. After that, the middleware stack is being executed in order
-to return the new response, with the exception and the proper HTTP status code 
+to return the new response, with the exception and the proper HTTP status code
 attached.
 
 ## After all
 
-Although all of this Rails "magic" might be a bit much to digest at first, 
-Rails' source code does quite a good job of explining what is going on. And as
+Although all of this Rails "magic" might be a bit much to digest at first,
+Rails' source code does quite a good job of explaining what is going on. And as
 you can see, there's always something more than meets the eye. If you need to
-remember something from this blogpost is that Rails does a very good 
+remember anything from this blogpost is that Rails does a very good
 (and interesting) job at handling HTTP status codes, to make your app's responses
-semantically correct and client friendly. 
+semantically correct and client friendly.
 
 If you got to this point - thanks so much for reading. I know it was a bit of a
-long journey, and I hope it was infromative for you. Looking forward to reading
+long journey, and I hope it was informative for you. Looking forward to reading
 your comments!
-
-
