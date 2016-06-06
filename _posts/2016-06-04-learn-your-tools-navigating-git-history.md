@@ -147,7 +147,7 @@ on which line it is. If we add the `-n` flag to our `git grep` command, `git`
 will provide the line numbers of the match:
 
 {% highlight bash %}
-➜  git grep 'def classify'
+➜  git grep -n 'def classify'
 
 activesupport/lib/active_support/core_ext/string/inflections.rb:205:  def classify
 activesupport/lib/active_support/inflector/methods.rb:186:    def classify(table_name)
